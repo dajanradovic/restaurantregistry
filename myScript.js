@@ -586,7 +586,8 @@ var UIcontroller=(function(){
 
            var html = `<p>
                       <a id="collapseA" class="btn btn-primary" data-toggle="collapse" href="#collapseExample${obj['orderId']}" role="button" aria-expanded="true" aria-controls="collapseExample${obj['orderId']}">
-                        <table class="table" id="tableA"><tbody><tr class="redakTable"><td class="OrderId">%OrderId%</td><td class="tableNumber">%tableName%</td><td class="orderDate">%orderDate%</td><td class="orderStatus">%orderStatus%</td></tr></tbody></table>  </a>
+                        <table class="table" id="tableA"><tbody><tr class="redakTable"><td class="OrderId">%OrderId%.</td><td class="tableNumber">%tableName%</td>
+                        <td class="orderDate">%orderDate%</td><td data-toggle="modal" data-target="#exampleModal1" class="orderStatus">%orderStatus%</td></tr></tbody></table>  </a>
                           </p>`;
 
 
@@ -603,18 +604,19 @@ var UIcontroller=(function(){
 
 
 
-                var additionalHtml =`<div class="collapse" data-toggle="true" id="collapseExample${obj['orderId']}"><div class="card card-body" >  <table class="table" ><thead><tr><th>Name</th><th>Quantity</th><th>Price</th></tr></thead>
+                var additionalHtml =`<div class="collapse" data-toggle="true" id="collapseExample${obj['orderId']}"><div class="card card-body" >  <table class="tableSListom" ><thead><tr><th>Name</th><th>Quantity</th><th>Price</th></tr></thead>
                  <tbody id="orderContents">`;
 
                  var items=obj['content'];
 
                  items.forEach(function(item){
 
-                    additionalHtml+= `<tr><td class="itemName">${item.name}</td><td class="itemQuantity">${item.quantity}</td><td>${item.price}</td></tr>`;
+                    additionalHtml+= `<tr><td class="itemName">${item.name}</td><td class="itemQuantity">${item.quantity}</td><td>${item.price} kn</td></tr>`;
 
                  });
 
-                 var finalHTML= newHtml + additionalHtml + `<tr><td>Iznos bez PDV</td><td>${obj['iznosBezPDV']}</td></tr><tr><td>TOTAL</td><td>${obj['konacanIznos']}</td></tr></tbody></table></div></div>`;
+                 var finalHTML= newHtml + additionalHtml + `<tr><td class="crtaIznad"><i>Iznos bez PDV</i></td><td class="crtaIznad"></td><td class="crtaIznad"><i>${obj['iznosBezPDV']} kn</i></td>
+                 </tr><tr><td><b>TOTAL</b></td><td></td><td><b>${obj['konacanIznos']} kn</b></td></tr></tbody></table></div></div>`;
 
 
 
@@ -740,6 +742,8 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
 	var arrayid=-1;
   var c;
   var completeOrderId=0;
+  var orderId;
+  var tajStatusButon;
     var addItemToTheBill = function(){
 
       UIcontroller.addItem(products.currentOrderList(arrayid));
@@ -818,6 +822,24 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
 
       $(".confirm").click(clickOnConfirmOrder);
 
+      $(".podlogaZaListuNarudzbi").on("click", ".orderStatus", function(){
+        tajStatusButon = this;
+      var orderIdStockom = $(this).siblings(".OrderId").text();
+       orderId = orderIdStockom.substring(parseInt(orderIdStockom.length) - 2, 1);
+
+
+    });
+
+    $("#finalOrderComplete").click(function(){
+      orders1.updateOrderStatus(orderId);
+      $(tajStatusButon).css("background-color", "green");
+      $(tajStatusButon).text("Completed!");
+      $(tajStatusButon).removeAttr("data-toggle");
+      $(tajStatusButon).removeAttr("data-target");
+
+
+    });
+
 
       $("#listaNarudzbi").click(function(){
           $(".izracun").css("display", "none");
@@ -833,7 +855,6 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
           $(".vanjskilayer5").slideUp(200);
 
     }  );
-
 
 
 
@@ -925,8 +946,12 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
 
         if (c==undefined){
 
+          console.log(products.currentOrderPriceTotal);
+          alert ("You have to pick a table");}
 
-          alert ("You have to pick a table");
+        else if(products.currentOrderPriceTotal() == 0){
+
+          alert ("You cannot confirm order with total zero");
 
         }
 
@@ -1130,7 +1155,21 @@ let orderId=1;
             getorderlist: function(id){
               console.log(currentOrders.orderList);
               return currentOrders.orderList[id];
+            },
+
+            updateorderstatus:function(id){
+
+                currentOrders.orderList.forEach(function(item){
+                          if (item.orderId == id){
+
+                            item.status = "completed";
+                          }
+
+                });
+
             }
+
+
 
 
         }
@@ -1174,6 +1213,11 @@ function date (){
       getOrderList:function(id){
 
         return currentOrders.getorderlist(id);
+      },
+
+      updateOrderStatus: function(id){
+
+        currentOrders.updateorderstatus(id);
       }
 
 

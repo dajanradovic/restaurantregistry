@@ -137,29 +137,12 @@ rel="stylesheet">
 
                              <div class="podlogaZaListuNarudzbi">
 
-<!--<a  class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-  <table class="table">
-
-    <tbody class="nizNarudzbi">
-
-    </tbody>
-  </table>
-</a>
-
-
-<div class="collapse" id="collapseExample">
-<div class="card card-body" >
-  <table class="table" >
-    <tbody id="orderContents">
-    </tbody>
-  </table>
-</div>
-                            </div>-->
+<!-- dio generiran kroz js kod, lista narudzbi-->
 
 </div>
 
 
-
+      <!--modal za izbor stola -->
         <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
@@ -176,6 +159,35 @@ rel="stylesheet">
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         <button type="button" id="confirmtablebtn" data-dismiss="modal" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--modal za krajnju potvrdu narudzbe i izbor placanja -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Payment method</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="cash">
+  <label class="form-check-label" for="inlineRadio1">Cash</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="card">
+  <label class="form-check-label" for="inlineRadio2">Card</label>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" id="finalOrderComplete" data-dismiss="modal" class="btn btn-primary">Complete the order</button>
       </div>
     </div>
   </div>

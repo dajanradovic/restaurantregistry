@@ -729,7 +729,7 @@ a#collapseA.btn.btn-primary{
 
 .orderDate{
   border-top: 0px !important;
-  width: 6px;
+  width: 60px;
   text-align: left;
   padding: 0px;
 }
@@ -737,8 +737,11 @@ a#collapseA.btn.btn-primary{
 .orderStatus{
   border-top: 0px !important;
   width: 60px;
-  padding:0px;
-  text-align: left;
+  text-align: center;
+  background-color: red;
+  border-radius: 3px;
+  color: black;
+  font-weight: bold;
 }
 
 .OrderId{
@@ -746,4 +749,19 @@ a#collapseA.btn.btn-primary{
   width: 60px;
   padding:0px;
   text-align: left;
+}
+
+.tableSListom{
+
+  width: 100%;
+}
+
+.crtaIznad{
+
+  border-top: 1px solid black;
+}
+
+#exampleModal1{
+
+  color: white;
 }
