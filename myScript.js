@@ -614,7 +614,7 @@ var UIcontroller=(function(){
 
                  });
 
-                 var finalHTML= newHtml + additionalHtml + "</tbody></table></div></div>";
+                 var finalHTML= newHtml + additionalHtml + `<tr><td>Iznos bez PDV</td><td>${obj['iznosBezPDV']}</td></tr><tr><td>TOTAL</td><td>${obj['konacanIznos']}</td></tr></tbody></table></div></div>`;
 
 
 
@@ -932,7 +932,9 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
 
         else {
           var order =  products.getCompleteOrder();
-          orders1.inputNewOrder(order, c);
+          var iznosbezPDV = products.currentOrderPrice();
+          var konacanIznos = products.currentOrderPriceTotal();
+          orders1.inputNewOrder(order, c, iznosbezPDV, konacanIznos);
          var i = orders1.getOrderList(completeOrderId);
           addOrderToListOfOrders(i);
           deleteOrder();
@@ -1146,7 +1148,7 @@ function date (){
 }
 
 
-  var Order = function(content, table, ){
+  var Order = function(content, table, iznosBezPDV, konacanIznos ){
 
 
 		this.status="active";
@@ -1154,15 +1156,17 @@ function date (){
     this.table=table;
     this.date = date();
     this.orderId=orderId;
+    this.iznosBezPDV = iznosBezPDV;
+    this.konacanIznos = konacanIznos;
 
   };
 
 
     return {
 
-      inputNewOrder:function(order, table){
+      inputNewOrder:function(order, table, iznosBezPDV, konacanIznos){
 
-        var order1 = new Order(order, table);
+        var order1 = new Order(order, table, iznosBezPDV, konacanIznos);
         currentOrders.inputneworder(order1);
         orderId+=1;
       },
