@@ -214,7 +214,6 @@ var products =(function(){
 				quantity:120,
 				macchiatoprice: function(){
 
-					console.log(coffee.macchiato.price);
 			}
 		},
 			capuccino:{
@@ -308,7 +307,6 @@ var products =(function(){
 
       getcurrentorderprice: function(){
 		       var sum = 0;
-           console.log("unutra");
            for (var i=0; i<currentOrder.name.length; i++){
             sum+=  parseInt(currentOrder.name[i].price) * parseInt(currentOrder.name[i].quantity);
 
@@ -351,14 +349,12 @@ var products =(function(){
       },
 
       getcompleteorder:function(){
-          console.log("dvojka");
         return currentOrder.name;
       },
 
       removeoneitemquantity: function(param){
         for (var i=0; i<currentOrder.name.length; i++){
-              console.log(param);
-              console.log(currentOrder.name);
+              
               if (currentOrder.name[i].name ==param) {
 
                       if (currentOrder.name[i].quantity ==0){
@@ -383,7 +379,6 @@ var products =(function(){
       },
 
       checkifitemexists: function(productName){
-        console.log("u funkciji");
 
         if (currentOrder.name.length<1){
 
@@ -496,7 +491,6 @@ var products =(function(){
 
 
       currentOrderList: function(arrayid){
-		      console.log("da vidim da li sam tu");
           return currentOrder.getcurrentorderlist(arrayid);
       },
 
@@ -512,13 +506,11 @@ var products =(function(){
 
       setNewItemNameIntoTheList: function(item){
             currentOrder.setnewitemnameintothelist(item);
-            console.log(item);
 
       },
 
       setNewItemPriceIntoTheList: function(item){
             currentOrder.setnewitempriceintothelist(item);
-            console.log(item);
 
 	  },
 
@@ -534,7 +526,6 @@ var products =(function(){
    },
 
    getCompleteOrder: function(){
-     console.log("jedinica");
      return currentOrder.getcompleteorder();
    },
 
@@ -648,14 +639,12 @@ var UIcontroller=(function(){
         updateItemQuantity: function(productName){
 
           $(".itemName").each(function(index){
-                console.log("na kraju sam");
 
                   if ($(this).text() == productName){
                   //  var a= parseInt( $(this).siblings(".itemQuantity").text()) + 1;
                    var a=  $(this).siblings(".itemQuantity").text();
 
                    if (a.startsWith("add")){
-                  // console.log(a);
                     var samiBroj = parseInt( a.substring(3,4)) +1;
 
 
@@ -680,7 +669,6 @@ var UIcontroller=(function(){
         updateItemQuantityMinus: function(productName){
 
           $(".itemName").each(function(index){
-                console.log("na kraju sam");
 
                   if ($(this).text() == productName){
                   //  var a= parseInt( $(this).siblings(".itemQuantity").text()) + 1;
@@ -811,7 +799,6 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
 
          $(this).css("opacity", 1.0);
          c=$(this).attr('title');
-         console.log(c);
 
       });
 
@@ -868,7 +855,6 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
       function clickOnMinusIzracun(){
 
         var imeproizvoda = $(this).closest('tr', '.itemName').text();
-        console.log("ime proizvoda: " + imeproizvoda);
         var pravoIme = imeproizvoda.split("add");
         var productName = pravoIme[0];
 
@@ -909,19 +895,15 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
       function clickOnKava(){
 
         var string=$(this).attr('name');
-        //console.log(string);
-        //console.log(products.coffeePrice(string))
-        //console.log(products.coffeeName(string));
+        
         var productPrice = products.coffeePrice(string);
         var productName = products.coffeeName(string);
 
-        console.log(productPrice);
-        console.log(productName);
+       
 
         if (products.checkIfItemExists(productName)==true){
             products.createProduct(productName, productPrice);
           arrayid++;
-          console.log("arrayid je " + arrayid);
 
               addItemToTheBill();
               addTotatWithoutPdv();
@@ -946,7 +928,6 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
 
         if (c==undefined){
 
-          console.log(products.currentOrderPriceTotal);
           alert ("You have to pick a table");}
 
         else if(products.currentOrderPriceTotal() == 0){
@@ -974,21 +955,16 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
       function clickOnPivo(){
 
         var string=$(this).attr('name');
-        console.log(string);
-        //console.log(string);
-        //console.log(products.coffeePrice(string))
-        //console.log(products.coffeeName(string));
+       
+       
         var productPrice = products.beerPrice(string);
         var productName = products.beerName(string);
 
 
-        console.log(productPrice);
-        console.log(productName);
-
+        
         if (products.checkIfItemExists(productName)==true){
             products.createProduct(productName, productPrice);
           arrayid++;
-          console.log("arrayid je " + arrayid);
 
               addItemToTheBill();
               addTotatWithoutPdv();
@@ -1012,21 +988,16 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
       function clickOnBezalkoholno(){
 
         var string=$(this).attr('name');
-        console.log(string);
-        //console.log(string);
-        //console.log(products.coffeePrice(string))
-        //console.log(products.coffeeName(string));
+      
         var productPrice = products.nonAlcoholicDrinksPrice(string);
         var productName = products.nonAlcoholicDrinksName(string);
 
 
-        console.log(productPrice);
-        console.log(productName);
+       
 
         if (products.checkIfItemExists(productName)==true){
             products.createProduct(productName, productPrice);
           arrayid++;
-          console.log("arrayid je " + arrayid);
 
               addItemToTheBill();
               addTotatWithoutPdv();
@@ -1050,21 +1021,17 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
       function clickOnAlkoholno(){
 
         var string=$(this).attr('name');
-        console.log(string);
-        //console.log(string);
-        //console.log(products.coffeePrice(string))
-        //console.log(products.coffeeName(string));
+       
         var productPrice = products.alcoholicDrinksPrice(string);
         var productName = products.alcoholicDrinksName(string);
 
 
-        console.log(productPrice);
-        console.log(productName);
+       
 
         if (products.checkIfItemExists(productName)==true){
             products.createProduct(productName, productPrice);
           arrayid++;
-          console.log("arrayid je " + arrayid);
+          
 
               addItemToTheBill();
               addTotatWithoutPdv();
@@ -1089,21 +1056,17 @@ var mainappcontroller=(function(products, UIcontroller, orders1){
       function clickOnSnacks(){
 
         var string=$(this).attr('name');
-        console.log(string);
-        //console.log(string);
-        //console.log(products.coffeePrice(string))
-        //console.log(products.coffeeName(string));
+     
         var productPrice = products.snacksPrice(string);
         var productName = products.snacksName(string);
 
 
-        console.log(productPrice);
-        console.log(productName);
+        
 
         if (products.checkIfItemExists(productName)==true){
             products.createProduct(productName, productPrice);
           arrayid++;
-          console.log("arrayid je " + arrayid);
+          
 
               addItemToTheBill();
               addTotatWithoutPdv();
@@ -1153,7 +1116,7 @@ let orderId=1;
             },
 
             getorderlist: function(id){
-              console.log(currentOrders.orderList);
+              
               return currentOrders.orderList[id];
             },
 
